@@ -119,21 +119,34 @@ class Movies extends Component {
 
     return (
       <div>
-        <div className='row mb-2 dflex align-items-center'>
-          <div
-            className='col-2'
-            style={{ textAlign: 'center' }}
-          >
-            <span>
-              <b>
-                <i>SELECT GENRE</i>
-              </b>
-            </span>
+        <div className='row dflex'>
+          <div className='col-2 mb-2 dflex align-items-center'>
+            <div
+              className='row-2'
+              style={{ textAlign: 'center' }}
+            >
+              <span>
+                <b>
+                  <i>SELECT GENRE</i>
+                </b>
+              </span>
+            </div>
+            <div className='row-2'>
+              <ListGroup
+                items={allGenres}
+                selectedItem={selectedGenre}
+                // aşağıdaki değerler modül içinde default geçildi. Burada başka bir değer verilirse
+                // default değerlerin üstüne yazılır.
+                // textProperty="name"
+                // valueProperty="_id"
+                onItemSelect={this.handleGenreSelect}
+              />
+            </div>
           </div>
 
           <div className='col'>
             <div className='row mb-2'>
-              <div className='col'>aaa</div>
+              <div className='col'>Burada Search olacak...</div>
             </div>
 
             <div className='row dflex align-items-center'>
@@ -155,58 +168,38 @@ class Movies extends Component {
                 </span>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className='row g-2'>
-          <div className='col-2 me-2'>
-            <ListGroup
-              items={allGenres}
-              selectedItem={selectedGenre}
-              // aşağıdaki değerler modül içinde default geçildi. Burada başka bir değer verilirse
-              // default değerlerin üstüne yazılır.
-              // textProperty="name"
-              // valueProperty="_id"
-              onItemSelect={this.handleGenreSelect}
-            />
-          </div>
-
-          <div className='col'>
-            <div className='col g-2'>
-              <div
-                className='row d-flex flex-column'
-                style={{ height: tableHeight }}
-              >
-                <MoviesTable
-                  movies={movies}
-                  sortColumn={sortColumn}
-                  onLike={this.handleLike}
-                  onDelete={this.handleDelete}
-                  onSort={this.handleSort}
-                />
-              </div>
-
-              <hr
-                className='border-2 border-bottom border-danger'
-                // style={{ border: "2px red dashed" }}
-                // bg-danger
+            <div
+              className='row d-flex flex-column'
+              style={{ height: tableHeight }}
+            >
+              <MoviesTable
+                movies={movies}
+                sortColumn={sortColumn}
+                onLike={this.handleLike}
+                onDelete={this.handleDelete}
+                onSort={this.handleSort}
               />
+            </div>
+            <hr
+              className='border-2 border-bottom border-danger'
+              // style={{ border: "2px red dashed" }}
+              // bg-danger
+            />
 
-              <div
-                className='row g-2'
-                // style={{ border: '1px solid red' }}
-              >
-                <Pagination
-                  itemsCount={totalCount}
-                  pageSize={pageSize}
-                  defaultPageSizes={defaultPageSizes}
-                  currentPage={currentPage}
-                  onPageChange={this.handlePageChange}
-                  onSelectPrevious={this.handlePrevious}
-                  onSelectNext={this.handleNext}
-                  onPageSizeSelection={this.handlePageSizeChange}
-                />
-              </div>
+            <div
+              className='row g-2'
+              // style={{ border: '1px solid red' }}
+            >
+              <Pagination
+                itemsCount={totalCount}
+                pageSize={pageSize}
+                defaultPageSizes={defaultPageSizes}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+                onSelectPrevious={this.handlePrevious}
+                onSelectNext={this.handleNext}
+                onPageSizeSelection={this.handlePageSizeChange}
+              />
             </div>
           </div>
         </div>

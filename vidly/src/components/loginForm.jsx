@@ -24,9 +24,9 @@ class LoginForm extends Form {
       <div>
         <h3>Please Login</h3>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput('username')}
-          {this.renderInput('password', 'password')}
-          {/* <div className='mb-3 form-check'>
+          {this.renderInput('username', 'Username')}
+          {this.renderInput('password', 'Password', 'password')}
+          <div className='mb-3 form-check'>
             <input
               type='checkbox'
               className='form-check-input'
@@ -38,7 +38,7 @@ class LoginForm extends Form {
             >
               Keep me logged in
             </label>
-          </div> */}
+          </div>
           {this.renderButton('Login')}
         </form>
       </div>
