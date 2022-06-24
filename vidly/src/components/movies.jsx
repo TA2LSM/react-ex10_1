@@ -119,36 +119,41 @@ class Movies extends Component {
 
     return (
       <div>
-        <div className='row g-2'>
+        <div className='row mb-2 dflex align-items-center'>
           <div
             className='col-2'
             style={{ textAlign: 'center' }}
           >
-            <p>
+            <span>
               <b>
                 <i>SELECT GENRE</i>
               </b>
-            </p>
+            </span>
           </div>
 
           <div className='col'>
-            <div className='col'>
-              <Link
-                to='/movies/new'
-                className='btn btn-outline-primary'
-                // onClick={() => handleSave(navigate)}
-              >
-                New Movie
-              </Link>
+            <div className='row mb-2'>
+              <div className='col'>aaa</div>
             </div>
 
-            <div
-              className='col'
-              style={{ textAlign: 'end' }}
-            >
-              <p>
-                Showing <b>{totalCount}</b> movies in the database
-              </p>
+            <div className='row dflex align-items-center'>
+              <div className='col-2'>
+                <Link
+                  to='/movies/new'
+                  className='btn btn-outline-primary'
+                >
+                  Add New Movie
+                </Link>
+              </div>
+
+              <div
+                className='col'
+                style={{ textAlign: 'end' }}
+              >
+                <span>
+                  Showing <b>{totalCount}</b> movies in the database
+                </span>
+              </div>
             </div>
           </div>
         </div>
