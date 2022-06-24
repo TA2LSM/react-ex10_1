@@ -2,12 +2,13 @@ import React, { Component } from 'react'; //imrc
 import { Link } from 'react-router-dom';
 import { getMovies } from '../services/fakeMovieService';
 import { getGenres } from '../services/fakeGenreService';
-import _, { reduceRight } from 'lodash';
+import _ from 'lodash';
 
 //components
 import Pagination from './common/pagination';
 import ListGroup from './common/listGroup';
 import MoviesTable from './moviesTable';
+import SearchBox from './common/searchBox';
 
 // reusable
 import { paginate } from '../utils/paginate';
@@ -21,6 +22,8 @@ class Movies extends Component {
     defaultPageSizes: [1, 2, 3, 4, 5, 10],
     currentPage: 1,
     pageSize: 0,
+    searchQuery: '',
+    selectedGenre: null,
     sortColumn: {
       path: 'title',
       order: 'asc',
@@ -81,7 +84,11 @@ class Movies extends Component {
 
   handleGenreSelect = genre => {
     //console.log(genre);
-    this.setState({ selectedGenre: genre, currentPage: 1 });
+    this.setState({ selectedGenre: genre, searchQuery: '', currentPage: 1 });
+  };
+
+  handleSearch = query => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
   };
 
   handleSort = sortColumn => {
@@ -89,14 +96,13 @@ class Movies extends Component {
   };
 
   getPageData = () => {
-    const { movies: allMovies, currentPage, pageSize, selectedGenre, sortColumn } = this.state;
+    const { movies: allMovies, currentPage, pageSize, selectedGenre, sortColumn, searchQuery } = this.state;
+    let filteredMovies = allMovies;
 
-    // aşağıdaki lojik sorgu ifadesinde " selectedGenre.name !== "All Genres" " yerine
-    // "selectedGenre._id" de kullanılabilir.
-    const filteredMovies =
-      selectedGenre && selectedGenre.name !== 'All Genres'
-        ? allMovies.filter(m => m.genre._id === selectedGenre._id)
-        : allMovies;
+    if (searchQuery)
+      filteredMovies = allMovies.filter(m => m.title.toLowerCase().startsWith(searchQuery.toLowerCase()));
+    else if (selectedGenre && selectedGenre.name !== 'All Genres')
+      filteredMovies = allMovies.filter(m => m.genre._id === selectedGenre._id);
 
     const sortedMovies = _.orderBy(filteredMovies, [sortColumn.path], [sortColumn.order]);
     const movies = paginate(sortedMovies, currentPage, pageSize);
@@ -146,7 +152,12 @@ class Movies extends Component {
 
           <div className='col'>
             <div className='row mb-2'>
-              <div className='col'>Burada Search olacak...</div>
+              <div className='col'>
+                <SearchBox
+                  value={this.state.searchQuery}
+                  onChange={this.handleSearch}
+                />
+              </div>
             </div>
 
             <div className='row dflex align-items-center'>
