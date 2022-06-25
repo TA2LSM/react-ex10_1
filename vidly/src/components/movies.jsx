@@ -99,8 +99,7 @@ class Movies extends Component {
     const { movies: allMovies, currentPage, pageSize, selectedGenre, sortColumn, searchQuery } = this.state;
     let filteredMovies = allMovies;
 
-    if (searchQuery)
-      filteredMovies = allMovies.filter(m => m.title.toLowerCase().startsWith(searchQuery.toLowerCase()));
+    if (searchQuery) filteredMovies = allMovies.filter(m => m.title.toLowerCase().includes(searchQuery.toLowerCase()));
     else if (selectedGenre && selectedGenre.name !== 'All Genres')
       filteredMovies = allMovies.filter(m => m.genre._id === selectedGenre._id);
 

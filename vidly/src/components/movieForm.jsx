@@ -73,8 +73,8 @@ class MovieForm extends Form {
         <form>
           {this.renderInput('title', 'Title')}
           {this.renderSelect('genreId', 'Genre', this.state.genres)}
-          {this.renderInput('numberInStock', 'Number in Stock')}
-          {this.renderInput('dailyRentalRate', 'Daily Rental Rate', 'number')}
+          {this.renderInput('numberInStock', 'Number in Stock', 'number')}
+          {this.renderInput('dailyRentalRate', 'Daily Rental Rate', 'number', '0.1')}
           {this.renderButton('Save')}
         </form>
       </>
